@@ -36,11 +36,11 @@ npx hardhat test
 
 ### Deployment
 
-npx hardhat run --network goerli scripts/deploy.js
+npx hardhat run --network goerli scripts/deploy.ts
 
 ### Contract Verification
 
 npx hardhat verify --network goerli [deployed_contract_address] [constructor_arguments]
 
 example:
-https://goerli.etherscan.io/address/0x643bc0Ea2209B43858f8EAd81dA7510e88914b8e#code
+https://goerli.etherscan.io/address/0x865628502D911Fc2773EFF88E8b2fA9b60265382
