@@ -2,16 +2,18 @@
 
 ## Project Overview
 
-This Hardhat project contains a Solidity smart contract for a Rock Paper Scissors game. The contract allows players to initialize games, join games, judge the winner, cancel games, and configure participation fees. The project includes test scripts, a deployment script, and instructions for contract verification.
+* This Hardhat project contains a Solidity smart contract for a Rock Paper Scissors game. 
+* The contract allows players to initialize games, join games, judge the winner, cancel games, and configure participation fees. 
+* The project includes test scripts, a deployment script, and instructions for contract verification.
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js
-- npm or yarn
+- [Node.js v18](https://nodejs.org/en/)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 - An Ethereum wallet with a private key
-- An Alchemy or Infura account for Ethereum node access
+- An [Alchemy](https://www.alchemy.com/) or [Infura](https://www.infura.io/) account for Ethereum node access
 
 ### installation
 
