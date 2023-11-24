@@ -15,7 +15,11 @@ This Hardhat project contains a Solidity smart contract for a Rock Paper Scissor
 
 ### installation
 
-when use npm : npm install
+```bash
+npm install
+// or
+yarn install
+```
 
 ### .env
 
