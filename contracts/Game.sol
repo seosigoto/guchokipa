@@ -41,6 +41,8 @@ contract Game is Ownable, ReentrancyGuard {
     event GameFeeConfigured(uint256);
     event GameInitialized(uint256);
     event GameCompleted(uint256, address);
+    event Gamejoined(uint256, address);
+    event GameCanceled(uint256);
 
     constructor(uint256 _participationFee) {
         pFee = _participationFee;
@@ -84,6 +86,7 @@ contract Game is Ownable, ReentrancyGuard {
         game.playerHand = _hand;
         game.player = _msgSender();
         game.status = GameStatus.IN_PROGRESS;
+        emit Gamejoined(_gameId, game.player);
     }
 
     function judgeWithHand(
@@ -175,8 +178,10 @@ contract Game is Ownable, ReentrancyGuard {
             (game.playerHand == Hand.SCISSOR && _ownerhand == Hand.PAPER)
         ) {
             game.winner = game.player;
+            emit GameCompleted(_gameId, game.player);
         } else {
             game.winner = owner();
+            emit GameCompleted(_gameId, owner());
         }
 
         uint prize = game.pFee;
@@ -198,6 +203,7 @@ contract Game is Ownable, ReentrancyGuard {
         game.status = GameStatus.COMPLETED;
         (bool sent, ) = payable(_msgSender()).call{value: game.pFee}("");
         require(sent, "Failed to send Ether");
+        emit GameCanceled(_gameId);
     }
 
     function configureFee(uint256 _pFee) external onlyOwner {

@@ -635,16 +635,43 @@ describe("Rock Paper Scissors Game Contract", function () {
     ).to.be.rejectedWith("Owner hand is not same with saved one");
   });
 
-  it("Receive ETH emit test", async function () {
-    const tx = await gameContract
+  it("join event emit test", async function () {
+    let tx = await gameContract
       .connect(owner)
       .initializeGame(ownerHandHashRock, { value: initialParticipationFee });
-    await tx.wait();
+    await expect(tx).to.emit(gameContract, "GameInitialized").withArgs("0");
 
     currentGameID = await gameContract.currentGameID();
     const gameInfo = await gameContract.gameList(currentGameID.sub(1));
     expect(gameInfo.status).to.equal(1); // 1 represents INITIALIZED status
     expect(currentGameID).to.equal(1);
+
+    tx = gameContract
+      .connect(player)
+      .join(0, Hand.Scissors, { value: initialParticipationFee });
+    await expect(tx)
+      .to.emit(gameContract, "Gamejoined")
+      .withArgs("0", await player.getAddress());
+
+    tx = gameContract.connect(owner).judge(0, commitment);
+    await expect(tx)
+      .to.emit(gameContract, "GameCompleted")
+      .withArgs("0", await owner.getAddress());
+  });
+
+  it("cancel event emit test", async function () {
+    let tx = await gameContract
+      .connect(owner)
+      .initializeGame(ownerHandHashRock, { value: initialParticipationFee });
+    await expect(tx).to.emit(gameContract, "GameInitialized").withArgs("0");
+
+    currentGameID = await gameContract.currentGameID();
+    const gameInfo = await gameContract.gameList(currentGameID.sub(1));
+    expect(gameInfo.status).to.equal(1); // 1 represents INITIALIZED status
+    expect(currentGameID).to.equal(1);
+
+    tx = gameContract.connect(owner).cancel(0);
+    await expect(tx).to.emit(gameContract, "GameCanceled").withArgs("0");
   });
 
   it("Receive ETH emit test", async function () {
