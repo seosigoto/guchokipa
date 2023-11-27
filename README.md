@@ -49,7 +49,8 @@ npx hardhat test
 ```
 
 - Please check this screenshot:
-  ![Alt text](image.png)
+  ![image](https://github.com/seosigoto/guchokipa/assets/74290267/2be8f2a9-72cb-4c12-8c21-d42ec0adff32)
+
 
 ### Deployment
 
